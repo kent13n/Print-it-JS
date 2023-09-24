@@ -33,16 +33,28 @@ function updateSlider() {
     });
 }
 
-document.querySelector('.arrow_left').addEventListener('click', function (evt) {
-    evt.preventDefault();
+function nextSlide() {
+    activeSlide = activeSlide + 1 <= slides.length - 1 ? activeSlide + 1 : 0;
+    updateSlider();
+}
+
+function prevSlide() {
     activeSlide = activeSlide - 1 >= 0 ? activeSlide - 1 : slides.length - 1;
     updateSlider();
+}
+
+document.querySelector('.arrow_left').addEventListener('click', function (evt) {
+    evt.preventDefault();
+    prevSlide();
 });
 
 document.querySelector('.arrow_right').addEventListener('click', function (evt) {
     evt.preventDefault();
-    activeSlide = activeSlide + 1 <= slides.length - 1 ? activeSlide + 1 : 0;
-    updateSlider();
+    nextSlide();
 });
 
 updateSlider();
+
+setInterval(function () {
+    nextSlide();
+}, 2000);
