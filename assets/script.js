@@ -17,6 +17,12 @@ const slides = [
     }
 ]
 
+const bullets = document.querySelector('.dots');
+slides.forEach((item, key) => {
+    let className = (key == 0) ? 'dot dot_selected' : 'dot';
+    bullets.innerHTML += `<span class="${className}"></span>`
+});
+
 document.querySelector('.arrow_left').addEventListener('click', function (evt) {
     evt.preventDefault();
     console.log('click left');
