@@ -21,6 +21,9 @@ const slides = [
     }
 ]
 
+// Preload images
+slides.forEach((slide) => (new Image()).src = `./assets/images/slideshow/${slide.image}`);
+
 function updateSlider() {
     bulletsEl.innerHTML = '';
 
