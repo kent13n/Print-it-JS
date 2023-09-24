@@ -1,3 +1,7 @@
+let activeSlide = 0;
+const tagLineEl = document.querySelector('#banner > p');
+const slideEl = document.querySelector('.banner-img');
+const bulletsEl = document.querySelector('.dots');
 const slides = [
     {
         "image": "slide1.jpg",
@@ -17,18 +21,28 @@ const slides = [
     }
 ]
 
-const bullets = document.querySelector('.dots');
-slides.forEach((item, key) => {
-    let className = (key == 0) ? 'dot dot_selected' : 'dot';
-    bullets.innerHTML += `<span class="${className}"></span>`
-});
+function updateSlider() {
+    bulletsEl.innerHTML = '';
+
+    slideEl.src = `./assets/images/slideshow/${slides[activeSlide].image}`;
+    tagLineEl.innerHTML = slides[activeSlide].tagLine;
+
+    slides.forEach((item, key) => {
+        let className = (key === activeSlide) ? 'dot dot_selected' : 'dot';
+        bulletsEl.innerHTML += `<span class="${className}"></span>`
+    });
+}
 
 document.querySelector('.arrow_left').addEventListener('click', function (evt) {
     evt.preventDefault();
-    console.log('click left');
+    activeSlide = activeSlide - 1 >= 0 ? activeSlide - 1 : slides.length - 1;
+    updateSlider();
 });
 
 document.querySelector('.arrow_right').addEventListener('click', function (evt) {
     evt.preventDefault();
-    console.log('click right');
+    activeSlide = activeSlide + 1 <= slides.length - 1 ? activeSlide + 1 : 0;
+    updateSlider();
 });
+
+updateSlider();
